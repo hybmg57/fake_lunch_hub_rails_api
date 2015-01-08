@@ -82,4 +82,12 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.before(:all, type: :feature) do
+    system("grunt build --gruntfile #{Rails.configuration.gruntfile_location}")
+  end
+
+  config.after(:all, type: :feature) do
+    FileUtils.rm_rf(Rails.root.join("public"))
+  end
 end
